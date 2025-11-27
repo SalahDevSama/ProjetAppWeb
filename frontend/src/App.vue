@@ -1,11 +1,22 @@
-<script setup></script>
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <header>
+    <div class="wrapper">
+      <nav>
+        <RouterLink to="/">Accueil</RouterLink>
+        <RouterLink to="/products">Nos Produits</RouterLink>
+        <RouterLink to="/contact">Contact</RouterLink>
+        <RouterLink to="/account">Mon Compte</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <RouterView />
+  </main>
 </template>
 
-<style scoped></style>
+<style src="./assets/base.css"></style>
