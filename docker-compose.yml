@@ -13,10 +13,13 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - postgres
-      - mongodb
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
     environment:
         - SPRING_MONGODB_URI=mongodb://admin:password123@mongodb:27017/tech_hardware_db?authSource=admin
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/tech_hardware_db
 
   postgres:
     image: postgres:15-alpine
@@ -31,6 +34,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      # Utilise l'utilitaire standard pg_isready
+      test: ["CMD-SHELL", "pg_isready -U admin -d tech_hardware_db"]
+      interval: 5s
+      timeout: 3s       
+      retries: 5         
+      start_period: 10s 
 
   mongodb:
     image: mongo:5.0

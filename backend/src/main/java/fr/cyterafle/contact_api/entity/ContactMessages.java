@@ -1,15 +1,12 @@
 package fr.cyterafle.contact_api.entity;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-
 
 @Getter
 @Setter
+@MappedSuperclass
 public class ContactMessages {
-
-    @Id
-    private String id;
 
     private String name;
 

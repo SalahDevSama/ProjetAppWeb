@@ -2,7 +2,11 @@
 
 ## Structure du projet :
     ProjetAppWeb/
-        backend/ (...)
+        backend/ (Java Spring Boot)
         frontend/ (Vue.js)
         docker-compose.yml
         README.md
+
+## Auteurs
+- Salah-Eddine DJERLIL (SaLaaH-sama)
+- Arnaud NGWALA-NGWALA (Cyterafle)
