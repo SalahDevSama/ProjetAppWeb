@@ -4,7 +4,7 @@
     <p>Votre expert en matériel informatique de pointe.</p>
     <div class="card">
       <h3>Dernières nouveautés</h3>
-      <p>Découvrez nos processeurs et cartes graphiques de nouvelle génération.</p>
+      <p>Découvrez nos derniers produits hardware de nouvelle génération.</p>
     </div>
   </div>
 </template>

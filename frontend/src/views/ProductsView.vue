@@ -1,14 +1,24 @@
 <template>
   <div>
-    <h1>Nos Produits Hardware</h1>
+    <h1>Nos Produits</h1>
+    <p class="subtitle">Le meilleur du hardware, sélectionné pour vous.</p>
+    
     <div class="products-grid">
       <div v-for="product in products" :key="product.id" class="card product-card">
-        <img :src="product.image" :alt="product.name" class="product-image">
+        <div class="img-container">
+          <img :src="product.image" :alt="product.name" class="product-image">
+        </div>
         
-        <h3>{{ product.name }}</h3>
-        <p>Catégorie : {{ product.category }}</p>
-        <p class="price">{{ product.price }} €</p>
-        <button @click="addToCart(product)">Ajouter au panier</button>
+        <div class="card-content">
+          <span class="category">{{ product.category }}</span>
+          <h3>{{ product.name }}</h3>
+          <div class="bottom-info">
+            <span class="price">{{ product.price }} €</span>
+            <button class="btn-add" @click="addToCart(product)">
+              + Panier
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -17,36 +27,81 @@
 <script setup>
 import { ref } from 'vue'
 
-// example de produit
 const products = ref([
   { id: 1, name: 'Tech Book Pro 14', category: 'Ordinateur', price: 1200, image: '/images/pc.png' },
   { id: 2, name: 'Tech Deck', category: 'Console', price: 499, image: '/images/console.png' },
-  { id: 3, name: 'Tech phone Emperador', category: 'Téléphone', price: 899, image: '/images/phone.png' },
+  { id: 3, name: 'Tech Phone Emperador', category: 'Téléphone', price: 899, image: '/images/phone.png' },
   { id: 4, name: 'Tech Tab Sama', category: 'Tablette', price: 650, image: '/images/tab.png' },
 ])
 
 const addToCart = (product) => {
-  alert(`${product.name} ajouté au panier !`)
-  // plus tard connection au store Pinia
+  alert(`${product.name} ajouté !`)
 }
 </script>
 
 <style scoped>
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
 }
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.img-container {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 10px;
+}
+
 .product-image {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  margin-bottom: 10px;
-  border-radius: 8px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
+
+.category {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.product-card h3 {
+  margin: 5px 0 15px 0;
+  font-size: 1.1rem;
+}
+
+.bottom-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
 .price {
-  font-weight: bold;
-  color: #2c3e50;
-  font-size: 1.2rem;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--primary-color);
+}
+
+.btn-add {
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  border-radius: 20px;
 }
 </style>

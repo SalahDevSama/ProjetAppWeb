@@ -1,47 +1,77 @@
-/* Un style simple et épuré */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --primary-color: #6366f1;
+  --secondary-color: #4f46e5;
+  --accent-color: #10b981; 
+  --text-color: #1f2937;
+  --bg-color: #f3f4f6;
+  --card-bg: #ffffff;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
-  background-color: #f4f4f9;
-  color: #333;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
 }
-header {
-  background-color: #2c3e50;
-  padding: 1rem;
-}
-nav a {
-  color: white;
-  text-decoration: none;
-  margin-right: 15px;
-  font-weight: bold;
-}
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+
 .container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 0 20px;
 }
+
+h1, h2, h3 {
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+/* Style des cartes (utilisé partout) */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Boutons globaux */
 button {
-  background-color: #42b983;
+  background-color: var(--primary-color);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
 }
+
+button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Champs de formulaire */
 input, textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #f9fafb;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
 }
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: white;
 }

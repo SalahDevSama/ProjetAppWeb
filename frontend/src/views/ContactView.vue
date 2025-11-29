@@ -58,6 +58,41 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-.success { color: green; margin-top: 10px; font-weight: bold; }
-.error { color: red; margin-top: 10px; font-weight: bold; }
+.contact-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 { text-align: center; }
+p { text-align: center; color: #6b7280; margin-bottom: 2rem; }
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
+}
+.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
+}
 </style>
