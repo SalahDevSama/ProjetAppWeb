@@ -17,7 +17,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// example de produits
+// example de produit
 const products = ref([
   { id: 1, name: 'Tech Book Pro 14', category: 'Ordinateur', price: 1200, image: '/images/pc.png' },
   { id: 2, name: 'Tech Deck', category: 'Console', price: 499, image: '/images/console.png' },
