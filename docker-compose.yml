@@ -5,7 +5,18 @@ services:
       ports:
         - "8080:80"
       depends_on:
-        - postgres
+        - backend
+
+  backend:
+    build: ./backend
+    container_name: tech_backend
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+      - mongodb
+    environment:
+        - SPRING_MONGODB_URI=mongodb://admin:password123@mongodb:27017/tech_hardware_db?authSource=admin
 
   postgres:
     image: postgres:15-alpine
@@ -21,5 +32,19 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  mongodb:
+    image: mongo:5.0
+    container_name: tech_mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin       
+      MONGO_INITDB_ROOT_PASSWORD: password123 
+      MONGO_INITDB_DATABASE: tech_hardware_db
+    volumes:
+      - mongo_data:/data/db
+
 volumes:
   postgres_data:
+  mongo_data:
