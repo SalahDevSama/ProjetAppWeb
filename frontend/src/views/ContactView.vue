@@ -5,19 +5,48 @@
 
     <div class="card">
       <form @submit.prevent="submitForm">
-        <label>Nom complet :</label>
-        <input v-model="formData.name" type="text" required placeholder="Prenom Nom">
+        <label for="name">Nom complet :</label>
+        <input 
+          id="name"
+          v-model="formData.name" 
+          type="text" 
+          required 
+          minlength="3"
+          placeholder="Prénom Nom"
+        >
 
-        <label>Email :</label>
-        <input v-model="formData.email" type="email" required placeholder="exemple@exemple.com">
+        <label for="email">Email :</label>
+        <input 
+          id="email"
+          v-model="formData.email" 
+          type="email" 
+          required 
+          placeholder="exemple@exemple.com"
+          @blur="validateEmail"
+        >
+        <span v-if="emailError" class="error-text">{{ emailError }}</span>
 
-        <label>Sujet :</label>
-        <input v-model="formData.subject" type="text" required placeholder="Demande de devis">
+        <label for="subject">Sujet :</label>
+        <input 
+          id="subject"
+          v-model="formData.subject" 
+          type="text" 
+          required 
+          minlength="5"
+          placeholder="Demande de devis"
+        >
 
-        <label>Message :</label>
-        <textarea v-model="formData.message" rows="5" required placeholder="Votre message..."></textarea>
+        <label for="message">Message :</label>
+        <textarea 
+          id="message"
+          v-model="formData.message" 
+          rows="5" 
+          required 
+          minlength="10"
+          placeholder="Votre message ..."
+        ></textarea>
 
-        <button type="submit">Envoyer le message</button>
+        <button type="submit" :disabled="!!emailError">Envoyer le message</button>
       </form>
     </div>
     
@@ -39,20 +68,54 @@ const formData = reactive({
 
 const statusMessage = ref('')
 const isSuccess = ref(false)
+const emailError = ref('')
+
+const validateEmail = () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (formData.email && !emailRegex.test(formData.email)) {
+    emailError.value = 'Adresse email invalide'
+  } else {
+    emailError.value = ''
+  }
+}
 
 const submitForm = async () => {
+  if (!formData.name || formData.name.length < 3) {
+    statusMessage.value = "Le nom doit contenir au moins 3 caractères"
+    isSuccess.value = false
+    return
+  }
+  
+  if (!formData.message || formData.message.length < 10) {
+    statusMessage.value = "Le message doit contenir au moins 10 caractères"
+    isSuccess.value = false
+    return
+  }
+  
+  if (emailError.value) {
+    return
+  }
+  
   console.log("Données à envoyer au backend :", formData)
   
   statusMessage.value = "Envoi en cours..."
+  isSuccess.value = true
   
+  // simulation d'envoi (à remplacer par appel API)
   setTimeout(() => {
     isSuccess.value = true
     statusMessage.value = "Message enregistré avec succès !"
-    // Reset du formulaire
+    
+    // reset du formulaire
     formData.name = ''
     formData.email = ''
     formData.subject = ''
     formData.message = ''
+    emailError.value = ''
+    
+    setTimeout(() => {
+      statusMessage.value = ''
+    }, 5000)
   }, 1000)
 }
 </script>
@@ -74,9 +137,27 @@ label {
   color: #374151;
 }
 
+.error-text {
+  display: block;
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
 button {
   width: 100%;
   margin-top: 10px;
+}
+
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .success {
@@ -87,6 +168,7 @@ button {
   text-align: center;
   margin-top: 20px;
 }
+
 .error {
   background-color: #fee2e2;
   color: #991b1b;
