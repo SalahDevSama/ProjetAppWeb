@@ -58,6 +58,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import axios from 'axios'
 
 const formData = reactive({
   name: '',
@@ -96,27 +97,31 @@ const submitForm = async () => {
     return
   }
   
-  console.log("Données à envoyer au backend :", formData)
-  
+  console.log("Données à envoyer au backend : ", formData)
+
   statusMessage.value = "Envoi en cours..."
-  isSuccess.value = true
-  
-  // simulation d'envoi (à remplacer par appel API)
-  setTimeout(() => {
-    isSuccess.value = true
-    statusMessage.value = "Message enregistré avec succès !"
-    
-    // reset du formulaire
-    formData.name = ''
-    formData.email = ''
-    formData.subject = ''
-    formData.message = ''
-    emailError.value = ''
-    
-    setTimeout(() => {
-      statusMessage.value = ''
-    }, 5000)
-  }, 1000)
+
+  axios.post('http://localhost:8081/send', formData)
+    .then(response => {
+      isSuccess.value = true
+      statusMessage.value = "Message envoyé avec succès !"
+      
+      // reset du formulaire
+      formData.name = ''
+      formData.email = ''
+      formData.subject = ''
+      formData.message = ''
+      emailError.value = ''
+      
+      setTimeout(() => {
+        statusMessage.value = ''
+      }, 5000)
+    })
+    .catch(error => {
+      isSuccess.value = false
+      statusMessage.value = "Erreur lors de l'envoi du message. Veuillez réessayer plus tard."
+      console.error("Erreur lors de l'envoi du message : ", error)
+    })
 }
 </script>
 
