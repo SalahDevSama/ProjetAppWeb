@@ -8,5 +8,5 @@
         README.md
 
 ## Auteurs
-- Salah-Eddine DJERLIL (SaLaaH-sama)
+- Salah-Eddine DJERLIL (SalahDevSama)
 - Arnaud NGWALA-NGWALA (Cyterafle)

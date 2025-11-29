@@ -2,21 +2,21 @@
   <div>
     <h1>Mon Compte</h1>
     <div class="card">
-      <div v-if="!isLoggedIn">
+      <div v-if="!authStore.isLoggedIn">
         <h2>Connexion</h2>
         <form @submit.prevent="login">
           <label for="username">Nom d'utilisateur</label>
-          <input id="username" v-model="username" type="text" placeholder="Nom d'utilisateur" required>
+          <input id="username" v-model="loginForm.username" type="text" placeholder="Nom d'utilisateur" required>
           
           <label for="password">Mot de passe</label>
-          <input id="password" v-model="password" type="password" placeholder="Mot de passe" required>
+          <input id="password" v-model="loginForm.password" type="password" placeholder="Mot de passe" required>
           
           <button type="submit">Se connecter</button>
         </form>
       </div>
       
       <div v-else>
-        <h2>Bonjour, {{ username }} !</h2>
+        <h2>Bonjour, {{ authStore.username }} !</h2>
         
         <h3 style="margin-top: 30px;">Mon Panier ({{ cartStore.itemCount }})</h3>
         
@@ -64,13 +64,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { useCartStore } from '@/stores/cart'
+import { useAuthStore } from '@/stores/auth'
 
 const cartStore = useCartStore()
-const isLoggedIn = ref(false)
-const username = ref('')
-const password = ref('')
+const authStore = useAuthStore()
+
+const loginForm = reactive({
+  username: '',
+  password: ''
+})
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('fr-FR', {
@@ -81,15 +85,16 @@ const formatPrice = (price) => {
 }
 
 const login = () => {
-  if (username.value && password.value) {
-    isLoggedIn.value = true
+  if (loginForm.username && loginForm.password) {
+    authStore.login(loginForm.username)
+
+    loginForm.username = ''
+    loginForm.password = ''
   }
 }
 
 const logout = () => {
-  isLoggedIn.value = false
-  username.value = ''
-  password.value = ''
+  authStore.logout()
 }
 
 const clearCart = () => {

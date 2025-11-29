@@ -101,7 +101,9 @@ const submitForm = async () => {
 
   statusMessage.value = "Envoi en cours..."
 
-  axios.post('http://localhost:8081/send', formData)
+  const apiUrl = import.meta.env.VITE_API_URL
+
+  axios.post(`${apiUrl}/send`, formData)
     .then(response => {
       isSuccess.value = true
       statusMessage.value = "Message envoyé avec succès !"
