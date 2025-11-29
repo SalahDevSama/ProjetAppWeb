@@ -1,7 +1,7 @@
 <template>
   <div class="contact-page">
     <h1>Nous Contacter</h1>
-    <p>Remplissez ce formulaire. Vos données seront sauvegardées sur nos serveurs sécurisés.</p>
+    <p>Remplissez ce formulaire, pour nous envoyer un message.</p>
 
     <div class="card">
       <form @submit.prevent="submitForm">
